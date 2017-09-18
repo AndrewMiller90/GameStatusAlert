@@ -1,0 +1,6 @@
+C:\Users\andrew.miller\Desktop\GameStatusAlert\GameStatusAlert\obj\Debug\GameStatusAlert.Data.csprojResolveAssemblyReference.cache
+C:\Users\andrew.miller\Desktop\GameStatusAlert\GameStatusAlert\obj\Debug\GameStatusAlert.exe
+C:\Users\andrew.miller\Desktop\GameStatusAlert\GameStatusAlert\obj\Debug\GameStatusAlert.pdb
+C:\Users\andrew.miller\Desktop\GameStatusAlert\GameStatusAlert\bin\Debug\GameStatusAlert.exe.config
+C:\Users\andrew.miller\Desktop\GameStatusAlert\GameStatusAlert\bin\Debug\GameStatusAlert.exe
+C:\Users\andrew.miller\Desktop\GameStatusAlert\GameStatusAlert\bin\Debug\GameStatusAlert.pdb
