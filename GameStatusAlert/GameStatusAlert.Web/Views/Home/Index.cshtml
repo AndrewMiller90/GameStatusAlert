@@ -6,66 +6,20 @@
 <script type="text/javascript" src="@Url.Content("~/Scripts/ApiRequests/ApiRequests.js")"></script>
 <script type="text/javascript" src="@Url.Content("~/Scripts/ApiRequests/TwilioRequests.js")"></script>
 <script type="text/javascript" src="@Url.Content("~/Scripts/GameStatusTracker/Polling.js")"></script>
-<script type="text/javascript" src="@Url.Content("~/Scripts/GameStatusTracker/GameStatusTracker.js")"></script>
+<script type="text/javascript" src="@Url.Content("~/Scripts/GameStatusTracker/SummonerInfo.js")"></script>
+<script type="text/javascript" src="@Url.Content("~/Scripts/Index/Index.js")"></script>
 
-<script>
-    var SummonerInfo = null;
-    function InitialRequest(region, name) {
-        SummonerInfo = new Object();
-        var UpdateSummonerInfo = function (summonerJson) {
-            SummonerInfo.name = name;
-            SummonerInfo.id = summonerJson.id;
-            SummonerInfo.region = region;
-            GetCurrentGameInfo(region, SummonerInfo.id, UpdateGameInfo);
-        }
-        GetSummonerByName(region, name, UpdateSummonerInfo);
-    }
-    function UpdateGameInfo(gameJson) {
-            SummonerInfo.gameId = gameJson.gameId;
-            HandleSummonerInfoResult(SummonerInfo);
-    }
-    function HandleSummonerInfoResult() {
-        document.getElementById("result").innerHTML = SummonerInfo.name + ": " + SummonerInfo.id + " (" + SummonerInfo.gameId + ") " + new Date().toLocaleString();
-        UpdateTrackerSectionVisibility();
-    }
-    function UpdateTrackerSectionVisibility() {
-        if (SummonerInfo.gameId !== null) {
-            $('#setupAlert').show();
-        } else {
-            $('#setupAlert').hide();
-        }
-    }
-    var Poll = new Poll();
-    function PollPromise(resolve, reject) {
-        GetCurrentGameInfo(SummonerInfo.region, SummonerInfo.id, UpdateGameInfo);
-        if (SummonerInfo.gameId !== null) {
-            resolve();
-        } else {
-            reject();
-        }
-    }
-    function PollCompleteCallback() {
-        SendSms(document.getElementById('phoneNumber').value, SummonerInfo.name + '\'s Game Ended');
-    }
-    function PollButtonClick() {
-        var button = $("#pollButton");
-        if (Poll.IsPolling()) {
-            button.value = 'Start tracking';
-            Poll.EndPoll();
-        } else {
-            button.value = 'Stop tracking';
-            Poll.StartPoll(PollPromise, PollCompleteCallback, 5000);
-        }
-    }
-</script>
+@*TODO: switch to angular for updating result box*@
 
 <h2>Enter a Summoner Name</h2>
+
 <input id="summonerName" type="text" name="summonerName" />
-<button onclick="InitialRequest('na1', document.getElementById('summonerName').value)">Search</button>
+<button id="searchSummonerByName">Search</button>
+
 <p id="result"></p>
-@*TODO: Replace style with css*@
-<div id="setupAlert" style="display:none">
+
+<div id="setupAlert">
     <h3>Phone Number:</h3>
     <input id="phoneNumber" type="tel" name="phoneNumber" />
-    <input type='button' value='Start tracking' id='pollButton' onclick="PollButtonClick()">
+    <button id='pollButton'>Start tracking</button>
 </div>

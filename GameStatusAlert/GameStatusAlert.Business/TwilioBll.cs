@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Twilio;
 using Twilio.Rest.Api.V2010.Account;
+using Twilio.Types;
 
 namespace GameStatusAlert.Business {
     public sealed class TwilioBll {

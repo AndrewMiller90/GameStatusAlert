@@ -51,16 +51,12 @@
     <Compile Include="Caching\ICacheCleanup.cs" />
     <Compile Include="Caching\ICachePolicy.cs" />
     <Compile Include="ExternalApi\IRiotApi.cs" />
-    <Compile Include="ExternalApi\RiotApi_JsonFake.cs" />
     <Compile Include="Queue\IMessageQueue.cs" />
     <Compile Include="Queue\CodeBomb.cs" />
-    <Compile Include="GameStatusTracker.cs" />
-    <Compile Include="ExternalApi\IGameStatusTracker.cs" />
     <Compile Include="Queue\MessageQueue.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Queue\MessageQueueCleanUp.cs" />
-    <Compile Include="Queue\RateLimiter.cs" />
     <Compile Include="ExternalApi\RiotApi.cs" />
   </ItemGroup>
   <ItemGroup>

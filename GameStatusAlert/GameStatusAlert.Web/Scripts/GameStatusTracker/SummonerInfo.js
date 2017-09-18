@@ -1,20 +1,21 @@
-﻿function SummonerInfo(name, region) {
+﻿//Dependencies
+// - ApiRequests.js
+function SummonerInfo(region, name) {
     this.Name = name;
     this.Region = region;
     this.Id = null;
     this.GameId = null;
-    
-    GetSummonerInfo();
-    GetGameInfo();
 
-    var GetSummonerInfo = new function () {
+    this.GetSummonerInfo = function () {
         GetSummonerByName(this.Region, this.Name, (summonerJson) => this.Id = summonerJson.id);
     }
-    var GetGameInfo = new function () {
+    this.GetGameInfo = function () {
         GetCurrentGameInfo(this.Region, this.Id, (gameJson) => this.GameId = gameJson.gameId);
     }
-    this.IsInGame = new function () {
-        GetGameInfo();
+    this.IsInGame = function () {
         return this.GameId !== null;
     }
+
+    this.GetSummonerInfo();
+    this.GetGameInfo();
 }
