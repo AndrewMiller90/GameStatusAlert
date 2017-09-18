@@ -4,18 +4,11 @@
 }
 
 <script type="text/javascript" src="@Url.Content("~/Scripts/ApiRequests/ApiRequests.js")"></script>
+<script type="text/javascript" src="@Url.Content("~/Scripts/ApiRequests/TwilioRequests.js")"></script>
 <script type="text/javascript" src="@Url.Content("~/Scripts/GameStatusTracker/Polling.js")"></script>
 <script type="text/javascript" src="@Url.Content("~/Scripts/GameStatusTracker/GameStatusTracker.js")"></script>
 
 <script>
-    function SendSms(phoneNumber, message) {
-        $.ajax({
-            type: "post",
-            url: '@Url.Action("SendSms", "Twilio")',
-            data: JSON.stringify({ 'phoneNumber': phoneNumber, 'body': message }),
-            contentType: "application/json; charset=utf-8",
-        });
-    }
     var SummonerInfo = null;
     function InitialRequest(region, name) {
         SummonerInfo = new Object();

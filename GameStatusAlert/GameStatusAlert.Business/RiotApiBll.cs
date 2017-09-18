@@ -8,8 +8,9 @@ using System.Web.Script.Serialization;
 
 namespace GameStatusAlert.Business
 {
-    public class RiotApiBll
+    public sealed class RiotApiBll
     {
+        //TODO: move to a config file
         private static string ApiKey = "RGAPI-47c292b0-41aa-4b6f-b686-dcd8df5dd557";
         public static object GetSummonerByName(string region, string name) {
             var riotApi = new RiotApi(region, ApiKey);

@@ -97,7 +97,16 @@ namespace GameStatusAlert.Caching {
                 if (Policy.SlidingExpiration != null) {
                     filterQuery = filterQuery.Where(x => DateTime.Now - x.LastAccess <= Policy.SlidingExpiration);
                 }
+                InvalidateObjects(CachedObjects.Except(filterQuery));
                 CachedObjects = filterQuery.ToList();
+            }
+        }
+        //TODO: Test invalidation
+        private void InvalidateObjects(IEnumerable<CacheEntry> toInvalidate) {
+            foreach(var item in toInvalidate) {
+                if (typeof(ICacheCleanup).IsAssignableFrom(item.Value.GetType())) {
+                    ((ICacheCleanup)item.Value).CleanUp();
+                }
             }
         }
 
