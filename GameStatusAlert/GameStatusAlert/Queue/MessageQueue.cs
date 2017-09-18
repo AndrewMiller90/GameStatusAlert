@@ -8,19 +8,30 @@ using System.Threading.Tasks;
 
 //TODO: Handle killing all threads when cache invalidates
 namespace GameStatusAlert.Queue {
-    internal class MessageQueue : IMessageQueue {
+    internal partial class MessageQueue : IMessageQueue {
         private ConcurrentQueue<Action> Queue = new ConcurrentQueue<Action>();
-        private Task executeTask;
+        private Task ExecuteTask;
+        private bool Executing;
         public int RefreshRate { get; set; }
         private object LockObj = new object();
-        public MessageQueue() : this(1000) { }
-        public MessageQueue(int refreshRate) {
+        public MessageQueue() : this(1000, true) { }
+        public MessageQueue(int refreshRate) : this(refreshRate, true) { }
+        public MessageQueue(int refreshRate, bool start) {
             RefreshRate = refreshRate;
+            if (start) {
+                Start();
+            }
+        }
+        public void Start() {
+            Executing = true;
             StartExecuteTask();
             StartWatchDog();
         }
+        public void Stop() {
+            Executing = false;
+        }
         private void StartExecuteTask() {
-            executeTask = Task.Run(() => Execute());
+            ExecuteTask = Task.Run(() => Execute());
         }
         private void Execute() {
             while (true) {
@@ -38,7 +49,7 @@ namespace GameStatusAlert.Queue {
         }
         private void WatchDog() {
             while (true) {
-                if (TaskStopped(executeTask)) {
+                if (TaskStopped(ExecuteTask)) {
                     StartExecuteTask();
                 }
                 Thread.Sleep(RefreshRate);
