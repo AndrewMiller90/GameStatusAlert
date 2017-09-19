@@ -15,6 +15,9 @@ function SummonerInfo(region, name) {
     this.IsInGame = function () {
         return this.GameId !== null;
     }
+    this.GetDescription = function () {
+        return this.Name + ": " + this.Id + " (" + this.GameId + ") " + new Date().toLocaleString()
+    }
 
     this.GetSummonerInfo();
     this.GetGameInfo();

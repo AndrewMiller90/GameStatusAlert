@@ -3,39 +3,38 @@
 // - Polling.js
 // - TwilioRequests.js
 
-$(document).ready(function () {
-    $("#searchSummonerByName")
-        .click(() => InitialRequest('na1', $("#summonerName").val()));
-    $("#pollButton")
-        .click(() => TogglePolling(5000));
-    $("#setupAlert")
-        .hide();
+//controller
+var _summonerInfo = null;
+var _summonerDescriptionApp = angular.module('IndexApp', []);
+_summonerDescriptionApp.controller('summonerDescriptionCtrl', function ($scope) {
+    //Summoner Search Panel
+    $scope.GetSummonerInfo = function () {
+        _summonerInfo = new SummonerInfo($scope.summonerRegion, $scope.summonerName);
+        $scope.UpdateDisplays();
+    };
+    $scope.SearchButtonDisabled = function () {
+        return (typeof ($scope.summonerName) == "undefined" ||
+            typeof ($scope.summonerRegion) == "undefined" ||
+            $scope.summonerName === "");
+    }
+    $scope.UpdateDisplays = function () {
+        $scope.Description = _summonerInfo.GetDescription();
+        $scope.ShowTracker = _summonerInfo.IsInGame();
+        $scope.ButtonText = _poll.IsPolling() ? "Stop tracking" : "Start tracking";
+    }
+    $scope.TogglePolling = function () {
+        TogglePolling(5000, $scope.PhoneNumber, function () {
+            if (!$scope.$$phase) {
+                $scope.$apply(() => $scope.UpdateDisplays());
+            }
+        });
+    };
 });
 
-//SummonerInfo code
-var _summonerInfo = null;
-function InitialRequest(region, name) {
-    _summonerInfo = new SummonerInfo(region, name);
-    DisplaySummonerInfo();
-    UpdateTrackerSectionVisibility();
-}
-
-function DisplaySummonerInfo() {
-    console.log($("#result").innerHtml);
-    $("#result").html(_summonerInfo.Name + ": " + _summonerInfo.Id + " (" + _summonerInfo.GameId + ") " + new Date().toLocaleString());
-}
-function UpdateTrackerSectionVisibility() {
-    var trackerSection = $("#setupAlert");
-    if (_summonerInfo.IsInGame()) {
-        trackerSection.show();
-    } else {
-        trackerSection.hide();
-    }
-}
-
 //Polling Code
+//TODO: Come up with something better than passing updateController and calling it on every pass
 var _poll = new Poll();
-function TogglePolling(pollRate) {
+function TogglePolling(pollRate, phoneNumber, updateController) {
     var GameTrackerPromise = function (resolve, reject) {
         _summonerInfo.GetGameInfo();
         if (_summonerInfo !== null && _summonerInfo.IsInGame()) {
@@ -43,22 +42,18 @@ function TogglePolling(pollRate) {
         } else {
             reject();
         }
-        UpdateTrackerSectionVisibility();
-        DisplaySummonerInfo();
+        updateController();
     }
     var GameTrackerCallback = function (phoneNumber) {
         SendSms(phoneNumber, _summonerInfo.Name + '\'s Game Ended');
+        updateController();
     }
 
-    var phoneNumber = $("#phoneNumber").value;
-    var button = $("#pollButton");
     if (_poll.IsPolling()) {
         _poll.EndPoll();
-        button.val("Start tracking");
     } else {
         _poll.StartPoll(GameTrackerPromise,
             () => GameTrackerCallback(phoneNumber),
             pollRate);
-        button.val("Stop tracking");
-    }  
+    };
 }

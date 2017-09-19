@@ -2,7 +2,10 @@
 @{
     ViewBag.Title = "Index";
 }
+@model Dictionary<string, string>
 
+@*TODO: Move to layout page*@
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
 <script type="text/javascript" src="@Url.Content("~/Scripts/ApiRequests/ApiRequests.js")"></script>
 <script type="text/javascript" src="@Url.Content("~/Scripts/ApiRequests/TwilioRequests.js")"></script>
 <script type="text/javascript" src="@Url.Content("~/Scripts/GameStatusTracker/Polling.js")"></script>
@@ -11,15 +14,21 @@
 
 @*TODO: switch to angular for updating result box*@
 
-<h2>Enter a Summoner Name</h2>
+<div ng-app="IndexApp" ng-controller="summonerDescriptionCtrl">
+    <h2>Enter a Summoner Name</h2>
+    <input ng-model="summonerName" type="text" />
+    @*TODO: Supply this from the server and iterate over it*@
+    <select ng-model="summonerRegion">
+        @foreach(var item in Model) {
+            <option value="@item.Value">@item.Key</option>
+        }
+    </select>
+    <button ng-click="GetSummonerInfo()" ng-disabled="SearchButtonDisabled()">Search</button>
+    <p id="result">{{Description}}</p>
 
-<input id="summonerName" type="text" name="summonerName" />
-<button id="searchSummonerByName">Search</button>
-
-<p id="result"></p>
-
-<div id="setupAlert">
-    <h3>Phone Number:</h3>
-    <input id="phoneNumber" type="tel" name="phoneNumber" />
-    <button id='pollButton'>Start tracking</button>
+    <div ng-show="ShowTracker">
+        <h3>Phone Number:</h3>
+        <input ng-model="PhoneNumber" />
+        <button ng-click="TogglePolling()">{{ButtonText}}</button>
+    </div>
 </div>
