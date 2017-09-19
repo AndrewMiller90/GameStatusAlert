@@ -110,10 +110,6 @@
     <Reference Include="System.Configuration" />
     <Reference Include="System.Web.Services" />
     <Reference Include="System.EnterpriseServices" />
-    <Reference Include="Twilio, Version=5.6.4.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Twilio.5.6.4\lib\net451\Twilio.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System.Web.Razor">
@@ -151,7 +147,8 @@
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
-    <Content Include="Scripts\GameStatusTracker\GameStatusTracker.js" />
+    <Content Include="Scripts\GameStatusTracker\SummonerInfo.js" />
+    <Content Include="Scripts\Index\Index.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
@@ -190,7 +187,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\Twilio\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\GameStatusAlert.Business\GameStatusAlert.Business.csproj">

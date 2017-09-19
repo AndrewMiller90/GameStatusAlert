@@ -1,5 +1,6 @@
-﻿function Poll() {
-    var Polling = false;
+﻿//TODO: make polling property private
+function Poll() {
+    this.Polling = false;
 
     this.StartPoll = function (pollPromise, callback, interval) {
         this.Polling = true;

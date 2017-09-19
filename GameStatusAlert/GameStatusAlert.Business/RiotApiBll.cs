@@ -11,7 +11,7 @@ namespace GameStatusAlert.Business
     public sealed class RiotApiBll
     {
         //TODO: move to a config file
-        private static string ApiKey = "RGAPI-47c292b0-41aa-4b6f-b686-dcd8df5dd557";
+        private static string ApiKey = "RGAPI-18c5517d-a09e-42eb-abf5-4854ba80289e";
         public static object GetSummonerByName(string region, string name) {
             var riotApi = new RiotApi(region, ApiKey);
             var result = riotApi.GetSummonerByName(name);
