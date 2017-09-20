@@ -4,3 +4,9 @@ C:\Users\andrew.miller\Desktop\GameStatusAlert\GameStatusAlert\obj\Debug\GameSta
 C:\Users\andrew.miller\Desktop\GameStatusAlert\GameStatusAlert\bin\Debug\GameStatusAlert.exe.config
 C:\Users\andrew.miller\Desktop\GameStatusAlert\GameStatusAlert\bin\Debug\GameStatusAlert.exe
 C:\Users\andrew.miller\Desktop\GameStatusAlert\GameStatusAlert\bin\Debug\GameStatusAlert.pdb
+C:\GitHub\GameStatusAlert\GameStatusAlert\GameStatusAlert\bin\Debug\GameStatusAlert.exe.config
+C:\GitHub\GameStatusAlert\GameStatusAlert\GameStatusAlert\bin\Debug\GameStatusAlert.exe
+C:\GitHub\GameStatusAlert\GameStatusAlert\GameStatusAlert\bin\Debug\GameStatusAlert.pdb
+C:\GitHub\GameStatusAlert\GameStatusAlert\GameStatusAlert\obj\Debug\GameStatusAlert.Data.csprojResolveAssemblyReference.cache
+C:\GitHub\GameStatusAlert\GameStatusAlert\GameStatusAlert\obj\Debug\GameStatusAlert.exe
+C:\GitHub\GameStatusAlert\GameStatusAlert\GameStatusAlert\obj\Debug\GameStatusAlert.pdb
