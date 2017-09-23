@@ -21,3 +21,5 @@ C:\GitHub\GameStatusAlert\GameStatusAlert\GameStatusAlert.Business\bin\Debug\Twi
 C:\GitHub\GameStatusAlert\GameStatusAlert\GameStatusAlert.Business\obj\Debug\GameStatusAlert.Business.csprojResolveAssemblyReference.cache
 C:\GitHub\GameStatusAlert\GameStatusAlert\GameStatusAlert.Business\obj\Debug\GameStatusAlert.Business.dll
 C:\GitHub\GameStatusAlert\GameStatusAlert\GameStatusAlert.Business\obj\Debug\GameStatusAlert.Business.pdb
+C:\GitHub\GameStatusAlert\GameStatusAlert\GameStatusAlert.Business\bin\Debug\GameStatusAlert.Business.dll.config
+C:\GitHub\GameStatusAlert\GameStatusAlert\GameStatusAlert.Business\bin\Debug\Microsoft.IdentityModel.Logging.xml
