@@ -7,46 +7,42 @@
 var _summonerInfo = null;
 var _summonerDescriptionApp = angular.module('IndexApp', []);
 _summonerDescriptionApp.controller('summonerDescriptionCtrl', function ($scope) {
-    //Summoner Search Panel
     $scope.GetSummonerInfo = function () {
-        _summonerInfo = new SummonerInfo($scope.summonerRegion, $scope.summonerName);
-        $scope.UpdateDisplays();
+        _summonerInfo = new SummonerInfo($scope.summonerRegion, $scope.summonerName, $scope.UpdateDisplays);
+        _summonerInfo.GetSummonerInfo();
     };
     $scope.SearchButtonDisabled = function () {
-        return (typeof ($scope.summonerName) == "undefined" ||
-            typeof ($scope.summonerRegion) == "undefined" ||
-            $scope.summonerName === "");
+        return (!$scope.summonerName || !$scope.summonerRegion || $scope.summonerName === "");
     }
     $scope.UpdateDisplays = function () {
-        $scope.Description = _summonerInfo.GetDescription();
-        $scope.ShowTracker = _summonerInfo.IsInGame();
-        $scope.ButtonText = _poll.IsPolling() ? "Stop tracking" : "Start tracking";
+        if ($scope.$$phase) {
+            $scope.Description = _summonerInfo.GetDescription();
+            $scope.ShowTracker = _summonerInfo.IsInGame();
+            $scope.ButtonText = _poll.IsPolling() ? "Stop tracking" : "Start tracking";
+        } else {
+            $scope.$apply($scope.UpdateDisplays);
+        }
     }
     $scope.TogglePolling = function () {
-        TogglePolling(5000, $scope.PhoneNumber, function () {
-            if (!$scope.$$phase) {
-                $scope.$apply(() => $scope.UpdateDisplays());
-            }
-        });
+        TogglePolling(5000, $scope.PhoneNumber);
+        $scope.UpdateDisplays();
     };
 });
 
 //Polling Code
 //TODO: Come up with something better than passing updateController and calling it on every pass
 var _poll = new Poll();
-function TogglePolling(pollRate, phoneNumber, updateController) {
+function TogglePolling(pollRate, phoneNumber) {
     var GameTrackerPromise = function (resolve, reject) {
-        _summonerInfo.GetGameInfo();
-        if (_summonerInfo !== null && _summonerInfo.IsInGame()) {
+        _summonerInfo.GetSummonerInfo();
+        if (_summonerInfo.IsInGame()) {
             resolve();
         } else {
             reject();
         }
-        updateController();
     }
     var GameTrackerCallback = function (phoneNumber) {
         SendSms(phoneNumber, _summonerInfo.Name + '\'s Game Ended');
-        updateController();
     }
 
     if (_poll.IsPolling()) {

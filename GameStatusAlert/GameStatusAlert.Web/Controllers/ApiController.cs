@@ -10,20 +10,14 @@ namespace GameStatusAlert.Web.Controllers {
     public class ApiController : Controller {
         
         [HttpPost]
-        public ActionResult GetCurrentGameInfo(string region, string summonerId) {
-            var game = RiotApiBll.GetCurrentGameInfo(region, summonerId);
-            if (game != null) {
-                return Json(game, "application/json");
-            }
-            return null; //TODO: Make this into an http error
+        public ActionResult GetGameStateById(string region, string summonerId) {
+            var gameState = RiotApiBll.GetGameStateById(region, summonerId);
+            return Json(gameState, "application/json");
         }
         [HttpPost]
-        public JsonResult GetSummonerByName(string region, string name) {
-            var summoner = RiotApiBll.GetSummonerByName(region, name);
-            if (summoner != null) {
-                return Json(summoner, "application/json");
-            }
-            return null; //TODO: Make this into an http error
+        public JsonResult GetGameStateByName(string region, string name) {
+            var gameState = RiotApiBll.GetGameStateByName(region, name);
+            return Json(gameState, "application/json");
         }
     }
 }

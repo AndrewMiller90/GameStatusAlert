@@ -11,42 +11,33 @@ namespace GameStatusAlert.Business
     public sealed class RiotApiBll
     {
         //TODO: move to a config file
-        private static string ApiKey = "RGAPI-18c5517d-a09e-42eb-abf5-4854ba80289e";
-        public static object GetSummonerByName(string region, string name) {
+        private static string ApiKey = "RGAPI-caacc965-62f4-4d0e-8c45-c9a606c7cce9";
+        public static GameStateDTO GetGameStateByName(string region, string name) {
             var riotApi = new RiotApi(region, ApiKey);
             var result = riotApi.GetSummonerByName(name);
             if (result != null) {
                 var json = DeserializeJson(result);
                 if (json.ContainsKey("id")) {
-                    return new {
-                        id = json["id"],
-                        region = region,
-                    };
+                    return GetGameStateById(region, json["id"].ToString());
                 }
             }
-            return null;
+            return new GameStateDTO(null, null);
         }
-        public static object GetCurrentGameInfo(string region, string summonerId) {
+        public static GameStateDTO GetGameStateById(string region, string summonerId) {
             var riotApi = new RiotApi(region, ApiKey);
             var result = riotApi.GetCurrentGameInfo(summonerId);
-            object gameID = null;
+            var gameState = new GameStateDTO(summonerId, null);
             if (result != null) {
                 var json = DeserializeJson(result);
                 if (json.ContainsKey("gameId")) {
-                    gameID = json["gameId"];
+                    gameState.gameId = json["gameId"].ToString();
                 }
             }
-            return new {
-                gameId = gameID
-            };
+            return gameState;
         }
         private static Dictionary<string, object> DeserializeJson(string json) {
             var deserializer = new JavaScriptSerializer();
             return (Dictionary<string, object>)deserializer.DeserializeObject(json);
         }
-        //private static string SerializeToJson(object obj) {
-        //    var serializer = new JavaScriptSerializer();
-        //    return serializer.Serialize(obj);
-        //}
     }
 }

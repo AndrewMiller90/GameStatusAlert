@@ -23,9 +23,11 @@ namespace GameStatusAlert.Queue {
             }
         }
         public void Start() {
-            Executing = true;
-            StartExecuteTask();
-            StartWatchDog();
+            if (!Executing) {
+                Executing = true;
+                StartExecuteTask();
+                StartWatchDog();
+            }
         }
         public void Stop() {
             Executing = false;
@@ -34,7 +36,7 @@ namespace GameStatusAlert.Queue {
             ExecuteTask = Task.Run(() => Execute());
         }
         private void Execute() {
-            while (true) {
+            while (Executing) {
                 Action action;
                 lock (LockObj) {
                     if (Queue.TryDequeue(out action)) {
@@ -48,7 +50,7 @@ namespace GameStatusAlert.Queue {
             Task.Run(() => WatchDog());
         }
         private void WatchDog() {
-            while (true) {
+            while (Executing) {
                 if (TaskStopped(ExecuteTask)) {
                     StartExecuteTask();
                 }
