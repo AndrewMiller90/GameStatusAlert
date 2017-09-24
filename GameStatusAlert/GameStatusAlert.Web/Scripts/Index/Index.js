@@ -24,7 +24,7 @@ _summonerDescriptionApp.controller('summonerDescriptionCtrl', function ($scope) 
         }
     }
     $scope.TogglePolling = function () {
-        TogglePolling(5000, $scope.PhoneNumber);
+        TogglePolling(15000, $scope.PhoneNumber);
         $scope.UpdateDisplays();
     };
 });

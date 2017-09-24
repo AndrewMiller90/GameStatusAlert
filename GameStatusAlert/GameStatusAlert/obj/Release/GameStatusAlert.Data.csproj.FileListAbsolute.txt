@@ -1,5 +1,6 @@
 C:\GitHub\GameStatusAlert\GameStatusAlert\GameStatusAlert\bin\Release\GameStatusAlert.exe.config
 C:\GitHub\GameStatusAlert\GameStatusAlert\GameStatusAlert\bin\Release\GameStatusAlert.exe
 C:\GitHub\GameStatusAlert\GameStatusAlert\GameStatusAlert\bin\Release\GameStatusAlert.pdb
+C:\GitHub\GameStatusAlert\GameStatusAlert\GameStatusAlert\obj\Release\GameStatusAlert.Data.csprojResolveAssemblyReference.cache
 C:\GitHub\GameStatusAlert\GameStatusAlert\GameStatusAlert\obj\Release\GameStatusAlert.exe
 C:\GitHub\GameStatusAlert\GameStatusAlert\GameStatusAlert\obj\Release\GameStatusAlert.pdb

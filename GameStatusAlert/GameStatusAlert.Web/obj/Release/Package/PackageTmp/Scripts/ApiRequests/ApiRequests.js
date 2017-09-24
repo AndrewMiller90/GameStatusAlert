@@ -1,11 +1,11 @@
-﻿function GetSummonerByName(region, name, onSuccess) {
+﻿function GetGameStateByName(region, name, onSuccess) {
     $.ajax({
         type: "post",
-        url: '/Api/GetSummonerByName',
+        url: '/Api/GetGameStateByName',
         data: JSON.stringify({ 'region': region, 'name': name }),
         contentType: "application/json",
         dataType: "json",
-        async: false,
+        async: true,
         success: onSuccess,
         error: function (jqXHR, textStatus, errorThrown) {
             //TODO: Write Erorr Handling
@@ -13,14 +13,14 @@
         }
     });
 }
-function GetCurrentGameInfo(region, summonerId, onSuccess) {
+function GetGameStateById(region, summonerId, onSuccess) {
     $.ajax({
         type: "post",
-        url: '/Api/GetCurrentGameInfo',
+        url: '/Api/GetGameStateById',
         data: JSON.stringify({ 'region': region, 'summonerId': summonerId }),
         contentType: "application/json; charset=utf-8",
         dataType: "json",
-        async: false,
+        async: true,
         success: onSuccess,
         error: function (jqXHR, textStatus, errorThrown) {
             //TODO: Write Error Handling
