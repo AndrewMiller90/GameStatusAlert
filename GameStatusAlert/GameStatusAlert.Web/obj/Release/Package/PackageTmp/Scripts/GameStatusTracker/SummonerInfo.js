@@ -1,16 +1,26 @@
 ﻿//Dependencies
 // - ApiRequests.js
-function SummonerInfo(region, name) {
+function SummonerInfo(region, name, callback) {
     this.Name = name;
     this.Region = region;
     this.Id = null;
     this.GameId = null;
+    this.Callback = callback;
 
     this.GetSummonerInfo = function () {
-        GetSummonerByName(this.Region, this.Name, (summonerJson) => this.Id = summonerJson.id);
+        console.log(typeof (this.Callback));
+
+        if (this.Id === null) {
+            GetGameStateByName(this.Region, this.Name, (json) => this.GetSummonerInfoComplete(json));
+        } else {
+            GetGameStateById(this.Region, this.Id, (json) => this.GetSummonerInfoComplete(json));
+        }
     }
-    this.GetGameInfo = function () {
-        GetCurrentGameInfo(this.Region, this.Id, (gameJson) => this.GameId = gameJson.gameId);
+    this.GetSummonerInfoComplete = function (json) {
+        this.Id = json.id;
+        this.GameId = json.gameId;
+
+        this.Callback();
     }
     this.IsInGame = function () {
         return this.GameId !== null;
@@ -18,7 +28,4 @@ function SummonerInfo(region, name) {
     this.GetDescription = function () {
         return this.Name + ": " + this.Id + " (" + this.GameId + ") " + new Date().toLocaleString()
     }
-
-    this.GetSummonerInfo();
-    this.GetGameInfo();
 }

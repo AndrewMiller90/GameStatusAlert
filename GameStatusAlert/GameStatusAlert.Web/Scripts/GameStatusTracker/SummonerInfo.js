@@ -8,8 +8,6 @@ function SummonerInfo(region, name, callback) {
     this.Callback = callback;
 
     this.GetSummonerInfo = function () {
-        console.log(typeof (this.Callback));
-
         if (this.Id === null) {
             GetGameStateByName(this.Region, this.Name, (json) => this.GetSummonerInfoComplete(json));
         } else {

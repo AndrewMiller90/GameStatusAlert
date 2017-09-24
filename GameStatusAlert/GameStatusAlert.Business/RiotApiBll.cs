@@ -1,6 +1,7 @@
 ﻿using GameStatusAlert.ExternalApi;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -10,8 +11,7 @@ namespace GameStatusAlert.Business
 {
     public sealed class RiotApiBll
     {
-        //TODO: move to a config file
-        private static string ApiKey = "RGAPI-caacc965-62f4-4d0e-8c45-c9a606c7cce9";
+        private static string ApiKey = ConfigurationManager.AppSettings["ApiKey"].ToString().Trim();
         public static GameStateDTO GetGameStateByName(string region, string name) {
             var riotApi = new RiotApi(region, ApiKey);
             var result = riotApi.GetSummonerByName(name);

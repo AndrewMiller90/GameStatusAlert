@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -9,10 +10,9 @@ using Twilio.Types;
 
 namespace GameStatusAlert.Business {
     public sealed class TwilioBll {
-        //TODO: move to config file
-        private static string accountSid = "ACed800b2e4f67503025c29a37f3034a27";
-        private static string authToken = "28dab42a1f95e2e7b6392803296f3a73";
-        private static string twilioPhoneNumber = "+18127273802";
+        private static string accountSid = ConfigurationManager.AppSettings["AccountSid"].ToString().Trim();
+        private static string authToken = ConfigurationManager.AppSettings["AuthToken"].ToString().Trim();
+        private static string twilioPhoneNumber = ConfigurationManager.AppSettings["PhoneNumber"].ToString().Trim();
         static TwilioBll() {
             TwilioClient.Init(accountSid, authToken);
         }
