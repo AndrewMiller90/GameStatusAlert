@@ -26,24 +26,27 @@ namespace GameStatusAlert.ExternalApi {
             _apiKey = apiKey;
         }
         private string MakeRequest(string command) {
-            try {
-                var request = BuildRequest(command);
-                using (var response = GetResponse(request))
-                using (var responseStream = new StreamReader(response.GetResponseStream(), Encoding.UTF8)) {
-                    return responseStream.ReadToEnd();
+            var request = BuildRequest(command);
+            using (var response = GetResponse(request)) {
+                if (response != null) {
+                    using (var responseStream = new StreamReader(response.GetResponseStream(), Encoding.UTF8)) {
+                        return responseStream.ReadToEnd();
+                    }
                 }
-            } catch (WebException e) {
-                //TODO: Do something with this
-            } catch (NullReferenceException e) {
-                //TODO: Do something with this
             }
             return null;
         }
         private WebResponse GetResponse(WebRequest request) {
             WebResponse response = null;
-            //TODO: Handle WebExceptions in Async tasks. Will not bubble on this thread.
+            //GetCurrentGameInfo returns a 404 WebException when a player is not in game. need a try-catch.
+            Action getResponseAction = () => {
+                try {
+                    response = request.GetResponse();
+                } catch (WebException) { /*TODO: Add additional logic to handle this*/ }
+            };
+
             var queue = (MessageQueue)_messageQueueCache.GetValueOrCreateEntry(_region, () => new MessageQueue());
-            queue.Enqueue(() => response = request.GetResponse()).Wait();
+            queue.Enqueue(getResponseAction).Wait();
 
             return response;
         }

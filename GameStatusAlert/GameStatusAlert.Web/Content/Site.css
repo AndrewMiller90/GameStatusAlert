@@ -16,6 +16,17 @@ textarea {
     max-width: 280px;
 }
 
+.loader {
+	position: fixed;
+	left: 0px;
+	top: 0px;
+	width: 100%;
+	height: 100%;
+	z-index: 9999;
+    background: url('Images/Loading/page-loader.gif') 50% 50% no-repeat rgb(249,249,249);
+    background-color:rgba(255, 255, 255, .4) !important;
+}
+
 /*.app-container {
     padding-left: 15px;
     padding-right: 15px;
