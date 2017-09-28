@@ -34,7 +34,6 @@ C:\GitHub\GameStatusAlert\GameStatusAlert\GameStatusAlert.Web\bin\System.Web.Raz
 C:\GitHub\GameStatusAlert\GameStatusAlert\GameStatusAlert.Web\bin\System.Web.Webpages.Deployment.dll
 C:\GitHub\GameStatusAlert\GameStatusAlert\GameStatusAlert.Web\bin\System.Web.Webpages.dll
 C:\GitHub\GameStatusAlert\GameStatusAlert\GameStatusAlert.Web\bin\System.Web.Webpages.Razor.dll
-C:\GitHub\GameStatusAlert\GameStatusAlert\GameStatusAlert.Web\bin\GameStatusAlert.exe
 C:\GitHub\GameStatusAlert\GameStatusAlert\GameStatusAlert.Web\bin\Twilio.dll
 C:\GitHub\GameStatusAlert\GameStatusAlert\GameStatusAlert.Web\bin\GameStatusAlert.Business.pdb
 C:\GitHub\GameStatusAlert\GameStatusAlert\GameStatusAlert.Web\bin\Microsoft.AI.DependencyCollector.xml
@@ -57,3 +56,4 @@ C:\GitHub\GameStatusAlert\GameStatusAlert\GameStatusAlert.Web\bin\Twilio.xml
 C:\GitHub\GameStatusAlert\GameStatusAlert\GameStatusAlert.Web\obj\Release\GameStatusAlert.Web.csprojResolveAssemblyReference.cache
 C:\GitHub\GameStatusAlert\GameStatusAlert\GameStatusAlert.Web\obj\Release\GameStatusAlert.Web.dll
 C:\GitHub\GameStatusAlert\GameStatusAlert\GameStatusAlert.Web\obj\Release\GameStatusAlert.Web.pdb
+C:\GitHub\GameStatusAlert\GameStatusAlert\GameStatusAlert.Web\bin\GameStatusAlert.dll

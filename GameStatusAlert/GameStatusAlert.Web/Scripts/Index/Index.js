@@ -7,7 +7,9 @@
 var _summonerInfo = null;
 var _summonerDescriptionApp = angular.module('IndexApp', []);
 _summonerDescriptionApp.controller('summonerDescriptionCtrl', function ($scope) {
+    $scope.LoaderVisible = false;
     $scope.GetSummonerInfo = function () {
+        $scope.LoaderVisible = true;
         _summonerInfo = new SummonerInfo($scope.summonerRegion, $scope.summonerName, $scope.UpdateDisplays);
         _summonerInfo.GetSummonerInfo();
     };
@@ -19,6 +21,7 @@ _summonerDescriptionApp.controller('summonerDescriptionCtrl', function ($scope) 
             $scope.Description = _summonerInfo.GetDescription();
             $scope.ShowTracker = _summonerInfo.IsInGame();
             $scope.ButtonText = _poll.IsPolling() ? "Stop tracking" : "Start tracking";
+            $scope.LoaderVisible = false;
         } else {
             $scope.$apply($scope.UpdateDisplays);
         }

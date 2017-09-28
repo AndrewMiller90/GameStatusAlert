@@ -9,9 +9,13 @@ using System.Threading.Tasks;
 //TODO: Handle killing all threads when cache invalidates
 namespace GameStatusAlert.Queue {
     internal partial class MessageQueue : IMessageQueue {
-        private ConcurrentQueue<Action> Queue = new ConcurrentQueue<Action>();
-        private Task ExecuteTask;
-        private bool Executing;
+        public bool Executing {
+            get {
+                return CancellationSource != null;
+            }
+        }
+        private ConcurrentQueue<Task> Queue = new ConcurrentQueue<Task>();
+        private CancellationTokenSource CancellationSource;
         public int RefreshRate { get; set; }
         private object LockObj = new object();
         public MessageQueue() : this(1000, true) { }
@@ -24,51 +28,48 @@ namespace GameStatusAlert.Queue {
         }
         public void Start() {
             if (!Executing) {
-                Executing = true;
-                StartExecuteTask();
-                StartWatchDog();
+                CancellationSource = new CancellationTokenSource();
+                StartWatchDogTask();
             }
         }
         public void Stop() {
-            Executing = false;
+            if (Executing) {
+                CancellationSource.Cancel();
+                CancellationSource = null;
+            }
         }
-        private void StartExecuteTask() {
-            ExecuteTask = Task.Run(() => Execute());
+        private Task StartTask(Action action) {
+            var token = CancellationSource.Token;
+            return Task.Run(action);
+        }
+        private Task StartExecuteTask() {
+            return StartTask(() => Execute());
+        }
+        private Task StartWatchDogTask() {
+            return StartTask(() => WatchDog());
         }
         private void Execute() {
-            while (Executing) {
-                Action action;
+            while (true) {
+                Task action;
                 lock (LockObj) {
                     if (Queue.TryDequeue(out action)) {
-                        action();
+                        action.Start();
                     }
                 }
                 Thread.Sleep(RefreshRate);
             }
         }
-        private void StartWatchDog() {
-            Task.Run(() => WatchDog());
-        }
         private void WatchDog() {
-            while (Executing) {
-                if (TaskStopped(ExecuteTask)) {
-                    StartExecuteTask();
-                }
-                Thread.Sleep(RefreshRate);
+            while(true) {
+                StartExecuteTask().Wait();
             }
         }
-        private bool TaskStopped(Task task) {
-            return task.IsCompleted || task.IsFaulted || task.IsCanceled;
-        }
-        public void Enqueue(Action action) {
+        public Task Enqueue(Action action) {
+            var task = new Task(action);
             lock (LockObj) {
-                Queue.Enqueue(action);
+                Queue.Enqueue(task);
             }
-        }
-        public bool TaskCompleted(Action action) {
-            lock (LockObj) {
-                return !Queue.Contains(action);
-            }
+            return task;
         }
     }
 }
