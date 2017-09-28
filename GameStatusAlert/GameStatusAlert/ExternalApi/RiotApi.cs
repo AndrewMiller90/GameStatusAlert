@@ -41,13 +41,9 @@ namespace GameStatusAlert.ExternalApi {
         }
         private WebResponse GetResponse(WebRequest request) {
             WebResponse response = null;
-            Action action = () => response = request.GetResponse();
-
+            //TODO: Handle WebExceptions in Async tasks. Will not bubble on this thread.
             var queue = (MessageQueue)_messageQueueCache.GetValueOrCreateEntry(_region, () => new MessageQueue());
-            queue.Enqueue(action);
-            while (!queue.TaskCompleted(action)) {
-                Thread.Sleep(10);
-            }
+            queue.Enqueue(() => response = request.GetResponse()).Wait();
 
             return response;
         }

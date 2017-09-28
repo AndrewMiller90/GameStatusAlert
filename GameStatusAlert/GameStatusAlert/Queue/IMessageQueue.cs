@@ -6,7 +6,6 @@ using System.Threading.Tasks;
 
 namespace GameStatusAlert.Queue {
     interface IMessageQueue {
-        void Enqueue(Action action);
-        bool TaskCompleted(Action action);
+        Task Enqueue(Action action);
     }
 }

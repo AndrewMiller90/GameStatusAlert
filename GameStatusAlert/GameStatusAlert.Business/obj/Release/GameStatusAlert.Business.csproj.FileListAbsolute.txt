@@ -1,7 +1,6 @@
 C:\GitHub\GameStatusAlert\GameStatusAlert\GameStatusAlert.Business\bin\Release\GameStatusAlert.Business.dll.config
 C:\GitHub\GameStatusAlert\GameStatusAlert\GameStatusAlert.Business\bin\Release\GameStatusAlert.Business.dll
 C:\GitHub\GameStatusAlert\GameStatusAlert\GameStatusAlert.Business\bin\Release\GameStatusAlert.Business.pdb
-C:\GitHub\GameStatusAlert\GameStatusAlert\GameStatusAlert.Business\bin\Release\GameStatusAlert.exe
 C:\GitHub\GameStatusAlert\GameStatusAlert\GameStatusAlert.Business\bin\Release\Microsoft.IdentityModel.Logging.dll
 C:\GitHub\GameStatusAlert\GameStatusAlert\GameStatusAlert.Business\bin\Release\Microsoft.IdentityModel.Tokens.dll
 C:\GitHub\GameStatusAlert\GameStatusAlert\GameStatusAlert.Business\bin\Release\Newtonsoft.Json.dll
@@ -16,3 +15,4 @@ C:\GitHub\GameStatusAlert\GameStatusAlert\GameStatusAlert.Business\bin\Release\T
 C:\GitHub\GameStatusAlert\GameStatusAlert\GameStatusAlert.Business\obj\Release\GameStatusAlert.Business.csprojResolveAssemblyReference.cache
 C:\GitHub\GameStatusAlert\GameStatusAlert\GameStatusAlert.Business\obj\Release\GameStatusAlert.Business.dll
 C:\GitHub\GameStatusAlert\GameStatusAlert\GameStatusAlert.Business\obj\Release\GameStatusAlert.Business.pdb
+C:\GitHub\GameStatusAlert\GameStatusAlert\GameStatusAlert.Business\bin\Release\GameStatusAlert.dll
